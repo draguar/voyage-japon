@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notre Voyage de Noces — Japon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1410;
+      --sumi: #2d2420;
+      --red: #c0392b;
+      --vermillon: #d94f3a;
+      --gold: #c9a84c;
+      --parch: #f5f0e8;
+      --paper: #faf7f2;
+      --mist: #e8e0d0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Brush stroke background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(192,57,43,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 85% 75%, rgba(201,168,76,0.05) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Kanji decoration ── */
+    .kanji-bg {
+      position: fixed;
+      font-family: 'Noto Serif JP', serif;
+      color: rgba(26,20,16,0.04);
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+      line-height: 1;
+    }
+    .kanji-bg.k1 { font-size: 28vw; top: -4vw; right: -4vw; }
+    .kanji-bg.k2 { font-size: 18vw; bottom: 5vw; left: -2vw; }
+
+    /* ── Layout ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 32px 100px;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 72px;
+      animation: fadeUp 1.1s ease both;
+    }
+
+    .mon-label {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.35em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .torii-icon {
+      width: 56px;
+      margin: 0 auto 24px;
+      display: block;
+      opacity: 0.85;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      line-height: 1.15;
+      color: var(--sumi);
+      margin-bottom: 10px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .subtitle {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      color: #7a6e62;
+      margin-top: 14px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 40px auto;
+      max-width: 340px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .divider-mon {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+
+    /* ── Intro text ── */
+    .intro {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--sumi);
+      margin-bottom: 64px;
+      animation: fadeUp 1.1s 0.15s ease both;
+    }
+    .intro strong { font-weight: 600; color: var(--red); }
+
+    /* ── Section title ── */
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    /* ── Cards ── */
+    .cards {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 64px;
+      animation: fadeUp 1.1s 0.3s ease both;
+    }
+
+    .card {
+      background: var(--parch);
+      border: 1px solid var(--mist);
+      border-radius: 2px;
+      padding: 28px 32px;
+      position: relative;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12%; bottom: 12%;
+      width: 3px;
+      background: var(--red);
+      border-radius: 0 2px 2px 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(26,20,16,0.08);
+      transform: translateY(-2px);
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-num {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.35rem;
+      color: var(--sumi);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #5a4f44;
+    }
+
+    .card .detail {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-style: italic;
+      color: #7a6e62;
+    }
+
+    /* ── Placeholder tag ── */
+    .placeholder {
+      display: inline-block;
+      background: rgba(192,57,43,0.08);
+      border: 1px dashed var(--red);
+      border-radius: 2px;
+      padding: 2px 10px;
+      font-size: 0.82rem;
+      color: var(--red);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Présentation PPTX ── */
+    .pptx-block {
+      margin-bottom: 64px;
+      animation: fadeUp 1.1s 0.3s ease both;
+    }
+
+    .pptx-link {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 32px;
+      background: var(--parch);
+      border: 1px solid var(--mist);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pptx-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(192,57,43,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .pptx-link:hover {
+      box-shadow: 0 8px 32px rgba(26,20,16,0.09);
+      transform: translateY(-2px);
+    }
+
+    .pptx-icon {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      background: var(--red);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pptx-icon svg { width: 26px; height: 26px; }
+
+    .pptx-text { flex: 1; }
+    .pptx-text strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--sumi);
+      margin-bottom: 4px;
+    }
+    .pptx-text span {
+      font-size: 0.9rem;
+      color: #7a6e62;
+      font-style: italic;
+    }
+
+    .pptx-arrow {
+      flex-shrink: 0;
+      font-size: 1.4rem;
+      color: var(--gold);
+      transition: transform 0.3s;
+    }
+    .pptx-link:hover .pptx-arrow { transform: translateX(4px); }
+
+    /* ── CTA envelope ── */
+    .cta-note {
+      text-align: center;
+      margin-bottom: 64px;
+      padding: 36px 32px;
+      border: 1px solid var(--mist);
+      background: var(--parch);
+      animation: fadeUp 1.1s 0.45s ease both;
+    }
+    .cta-note p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--sumi);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      animation: fadeUp 1.1s 0.6s ease both;
+    }
+
+    .footer-kanji {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: 0.5em;
+      margin-bottom: 12px;
+      display: block;
+    }
+    footer p {
+      font-size: 0.9rem;
+      color: #9a8e80;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      main { padding: 52px 20px 72px; }
+      .card { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background kanji: 旅 (voyage) 愛 (amour) -->
+  <div class="kanji-bg k1">旅</div>
+  <div class="kanji-bg k2">愛</div>
+
+  <main>
+
+    <!-- Header -->
+    <header>
+      <span class="mon-label">Liste de mariage</span>
+
+      <!-- Torii SVG inline -->
+      <svg class="torii-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="14" width="48" height="5" rx="2.5" fill="#c0392b"/>
+        <rect x="8" y="20" width="40" height="3.5" rx="1.75" fill="#c0392b" opacity="0.6"/>
+        <rect x="11" y="23.5" width="4" height="28" rx="2" fill="#c0392b" opacity="0.7"/>
+        <rect x="41" y="23.5" width="4" height="28" rx="2" fill="#c0392b" opacity="0.7"/>
+        <rect x="8" y="11" width="4" height="7" rx="2" fill="#c0392b" opacity="0.5"/>
+        <rect x="44" y="11" width="4" height="7" rx="2" fill="#c0392b" opacity="0.5"/>
+      </svg>
+
+      <h1>Notre voyage de noces<br><em>au Japon</em></h1>
+      <p class="subtitle">日本への新婚旅行 &nbsp;·&nbsp; Été 2025</p>
+    </header>
+
+    <!-- Divider -->
+    <div class="divider"><span class="divider-mon">✦</span></div>
+
+    <!-- Intro -->
+    <p class="intro">
+      Pour notre cadeau de mariage, nous avons un rêve&nbsp;:<br>
+      découvrir ensemble les temples, les jardins et les saveurs du Japon.<br><br>
+      <strong>Votre contribution, quelle qu'elle soit,</strong> nous aidera<br>
+      à vivre cette aventure inoubliable. Merci du fond du cœur.
+    </p>
+
+    <!-- Présentation du voyage -->
+    <p class="section-title">Découvrir notre voyage</p>
+
+    <div class="pptx-block">
+      <a
+        href="https://view.officeapps.live.com/op/view.aspx?src=https://votre-pseudo.github.io/votre-repo/presentation.pptx"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="pptx-link"
+        title="Ouvrir la présentation"
+      >
+        <div class="pptx-icon">
+          <!-- Slideshow icon -->
+          <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="22" height="15" rx="1.5" stroke="white" stroke-width="1.6"/>
+            <path d="M10 9.5L16.5 13L10 16.5V9.5Z" fill="white"/>
+            <line x1="13" y1="19" x2="13" y2="22" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="9" y1="22" x2="17" y2="22" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pptx-text">
+          <strong>Présentation du voyage</strong>
+          <span>Destination, étapes, programme &nbsp;→ ouvre dans un nouvel onglet</span>
+        </div>
+        <div class="pptx-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="divider"><span class="divider-mon">✦</span></div>
+
+    <!-- How to participate -->
+    <p class="section-title">Comment participer</p>
+
+    <div class="cards">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <span class="card-num">01 &nbsp;·&nbsp; EN MAINS PROPRES</span>
+        <h3>Enveloppe le jour J</h3>
+        <p>Remettez-nous directement une enveloppe lors de la célébration. Nous serons touchés par ce geste personnel.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <span class="card-num">02 &nbsp;·&nbsp; VIREMENT INSTANTANÉ</span>
+        <h3>PayPal &amp; Wero <span style="font-size:0.8em;color:#7a6e62">(gratuit)</span></h3>
+        <p>Deux solutions sans frais pour un virement simple et rapide.</p>
+        <p class="detail">
+          PayPal : <span class="placeholder">votre@email.com</span><br>
+          Wero : <span class="placeholder">+33 6 XX XX XX XX</span>
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <span class="card-num">03 &nbsp;·&nbsp; CAGNOTTE EN LIGNE</span>
+        <h3>Participer via la cagnotte</h3>
+        <p>Rejoignez notre cagnotte en ligne pour contribuer en quelques clics, depuis n'importe où.</p>
+        <p class="detail">
+          <a href="#" class="placeholder" style="text-decoration:none;">→ Lien de la cagnotte</a>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Note -->
+    <div class="cta-note">
+      <p>Pas d'obligation de montant&nbsp;— chaque contribution,<br>grande ou petite, compte infiniment pour nous.<br><br>
+      <em>Merci de partager ce moment avec nous&nbsp;✨</em></p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <span class="footer-kanji">ありがとう</span>
+      <p>Prénom &amp; Prénom &nbsp;·&nbsp; Date du mariage</p>
+    </footer>
+
+  </main>
+</body>
+</html>
